@@ -30,7 +30,7 @@ CFLAGS = \
 #  - check python-config works
 #  - check stubs are supported (TCL_SUPPORTS_STUBS)
 
-TCL_STUBS ?= 1
+TCL_STUBS ?= 0
 TCLCONFIG ?= $(shell \
 	(X=/usr/lib/tcl8.6/tclConfig.sh; test -f $$X && echo $$X || exit 1) || \
 	(X=/usr/lib64/tclConfig.sh; test -f $$X && echo $$X || exit 1) || \
@@ -47,7 +47,7 @@ TCL_LIB     = $(shell . "$(TCLCONFIG)"; \
 	fi \
 )
 TCL_INCLUDE = $(shell . "$(TCLCONFIG)"; echo $$TCL_INCLUDE_SPEC)
-PY_LIB      = $(shell python3-config --libs)
+PY_LIB      = $(shell python3-config --libs --embed)
 PY_INCLUDE  = $(shell python3-config --includes)
 
 PY_LIBFILE  = $(shell python3 -c 'import distutils.sysconfig; print(distutils.sysconfig.get_config_var("LDLIBRARY"))')

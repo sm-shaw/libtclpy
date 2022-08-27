@@ -1,7 +1,16 @@
 #include <Python.h>
 #include <tcl.h>
 #include <assert.h>
-#include <dlfcn.h>
+
+#if ! defined(HAVE_PYTHON3)
+    #include <dlfcn.h>
+#endif
+
+#if defined(_MSC_VER) || defined(__MINGW32__)
+    #define TCLPY_DLLEXPORT __declspec(dllexport)
+#else
+    #define TCLPY_DLLEXPORT
+#endif
 
 /* TCL LIBRARY BEGINS HERE */
 
@@ -249,7 +258,7 @@ PyCall_Cmd(
 	PyObject *pObjParent = NULL;
 	PyObject *pObj = pMainModule;
 	PyObject *pObjStr = NULL;
-	char *dot = index(objandfn, '.');
+	char *dot = strchr(objandfn, '.');
 	while (dot != NULL) {
 		pObjParent = pObj;
 
@@ -266,7 +275,7 @@ PyCall_Cmd(
 			return PY_ERROR;
 
 		objandfn = dot + 1;
-		dot = index(objandfn, '.');
+		dot = strchr(objandfn, '.');
 	}
 
 	PyObject *pFn = PyObject_GetAttrString(pObj, objandfn);
@@ -478,10 +487,10 @@ typedef enum {
 } ParentInterp;
 static ParentInterp parentInterp = NO_PARENT;
 
-int Tclpy_Init(Tcl_Interp *interp);
+TCLPY_DLLEXPORT int Tclpy_Init(Tcl_Interp *interp);
 PyObject *init_python_tclpy(Tcl_Interp* interp);
 
-int
+TCLPY_DLLEXPORT int
 Tclpy_Init(Tcl_Interp *interp)
 {
 	/* TODO: all TCL_ERRORs should set an error return */
@@ -503,9 +512,11 @@ Tclpy_Init(Tcl_Interp *interp)
 	if (cmd == NULL)
 		return TCL_ERROR;
 
+#if ! defined(HAVE_PYTHON3)
 	/* Hack to fix Python C extensions not linking to libpython*.so */
 	/* http://bugs.python.org/issue4434 */
 	dlopen(PY_LIBFILE, RTLD_LAZY | RTLD_GLOBAL);
+#endif
 
 	if (parentInterp != PY_PARENT) {
 		Py_Initialize(); /* void */
@@ -566,7 +577,7 @@ init_python_tclpy(Tcl_Interp* interp)
 }
 
 PyMODINIT_FUNC
-inittclpy(void)
+PyInit_tclpy(void)
 {
 	return init_python_tclpy(NULL);
 }
