@@ -31,12 +31,7 @@ CFLAGS = \
 #  - check stubs are supported (TCL_SUPPORTS_STUBS)
 
 TCL_STUBS ?= 0
-TCLCONFIG ?= $(shell \
-	(X=/usr/lib/tcl8.6/tclConfig.sh; test -f $$X && echo $$X || exit 1) || \
-	(X=/usr/lib64/tclConfig.sh; test -f $$X && echo $$X || exit 1) || \
-	(X=/usr/lib/tclConfig.sh; test -f $$X && echo $$X || exit 1) || \
-	echo "" \
-)
+TCLCONFIG ?= ../Tcl/tclConfig.sh
 TCLCONFIG_TEST = test -f "$(TCLCONFIG)" || (echo "Couldn't find tclConfig.sh" && exit 1)
 
 TCL_LIB     = $(shell . "$(TCLCONFIG)"; \
