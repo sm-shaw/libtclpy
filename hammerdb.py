@@ -3,8 +3,6 @@ import builtins as __builtin__
 
 def init_hammerdbpy():
     init_tcl = (r'''
-global hdb_version
-set hdb_version "v4.6"
 set UserDefaultDir [ file join [ file dirname [ info script ] ] ]
 ::tcl::tm::path add "$UserDefaultDir/modules"
 
