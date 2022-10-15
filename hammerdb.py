@@ -1,49 +1,6 @@
 import tclpy
 import builtins as __builtin__
 
-def init_hammerdbpy():
-    init_tcl = (r'''
-set UserDefaultDir [ file join [ file dirname [ info script ] ] ]
-::tcl::tm::path add "$UserDefaultDir/modules"
-
-append modulelist { Thread msgcat xml comm task reformat_tcl }
-for { set modcount 0 } { $modcount < [llength $modulelist] } { incr modcount } {
-    set m [lindex $modulelist $modcount]
-		set loadtext $m
-	if [catch { package require $m }] {
-                puts stderr "While loading module\
-                        \"$m\"...\n$errorInfo"
-                exit 1
-        }
-    }
-    
-append loadlist { genvu.tcl gentpcc.tcl gentpch.tcl gengen.tcl genxml.tcl genmodes.tcl gentccmn.tcl gentccli.tcl geninitcli.tcl gencli.tcl genhelp.tcl genstep.tcl }
-for { set loadcount 0 } { $loadcount < [llength $loadlist] } { incr loadcount } {
-    set f [lindex $loadlist $loadcount]
-		set loadtext $f
-	if [catch {source [ file join $UserDefaultDir src generic $f ]}] {
-                puts stderr "While loading component file\
-                        \"$f\"...\n$errorInfo"
-                exit 1
-        }
-    }
-
-for { set dbsrccount 0 } { $dbsrccount < [llength $dbsrclist] } { incr dbsrccount } {
-    set f [lindex $dbsrclist $dbsrccount]
-		set loadtext $f
-	if [catch {source [ file join $UserDefaultDir src $f ]}] {
-                puts stderr "Error loading database source files/$f"
-        }
-    }
-
-rename putscli _putscli
-proc putscli { output } {
-puts "$output\r"
-	}
-''')
-
-    tclpy.eval(init_tcl)
-
 def eval_hammerdb_command(command_name,*args):
     to_hdb = command_name
     for arg in args:
@@ -170,5 +127,3 @@ def source(filename):
 
 def help(*args):
      eval_hammerdb_command('help',*args)
-
-init_hammerdbpy()
