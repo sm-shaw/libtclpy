@@ -3,8 +3,10 @@
 #include <tcl.h>
 #include <assert.h>
 
-#if ! defined(HAVE_PYTHON3)
+#if ! defined(_MSC_VER)
+#if ! defined(HAVE_PYTHON3) 
     #include <dlfcn.h>
+#endif
 #endif
 
 #if defined(_MSC_VER) || defined(__MINGW32__)
@@ -513,10 +515,12 @@ Tclpy_Init(Tcl_Interp *interp)
 	if (cmd == NULL)
 		return TCL_ERROR;
 
-#if ! defined(HAVE_PYTHON3)
+#if ! defined(_MSC_VER)
+#if ! defined(HAVE_PYTHON3) 
 	/* Hack to fix Python C extensions not linking to libpython*.so */
 	/* http://bugs.python.org/issue4434 */
 	dlopen(PY_LIBFILE, RTLD_LAZY | RTLD_GLOBAL);
+#endif
 #endif
 
 	if (parentInterp != PY_PARENT) {
@@ -576,7 +580,7 @@ init_python_tclpy(Tcl_Interp* interp)
 
 	return m;
 }
-
+/* On Windows PyMODINIT_FUNC expands to __declspec(dllexport) */
 PyMODINIT_FUNC
 PyInit_tclpy(void)
 {
