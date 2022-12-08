@@ -9,10 +9,12 @@ def eval_hammerdb_command(command_name,*args):
             else:
                 to_hdb = ' '.join((to_hdb, arg))
 
-    tclpy.eval(to_hdb)
+    output = tclpy.eval(to_hdb)
     tclpy.eval('flush stdout')
     if runscript_printline == 0:
         __builtin__.print('\r')
+    if output:
+        return output
 
 def runscript(output):
     global runscript_printline
@@ -23,7 +25,9 @@ def tclversion():
     __builtin__.print('Python interface to Tcl version ' + a)
 
 def buildschema(*args):
-    eval_hammerdb_command('buildschema',*args)
+    jobid = eval_hammerdb_command('buildschema',*args)
+    if jobid:
+        return jobid
 
 def deleteschema(*args):
     eval_hammerdb_command('deleteschema',*args)
@@ -48,6 +52,16 @@ def diset(*args):
 
 def distributescript(*args):
     eval_hammerdb_command('distributescript',*args)
+
+def jobs(*args):
+    retval = eval_hammerdb_command('jobs',*args)
+    if retval:
+        return retval
+
+def job(*args):
+    retval = eval_hammerdb_command('job',*args)
+    if retval:
+        return retval
 
 def librarycheck(*args):
     eval_hammerdb_command('librarycheck',*args)
@@ -101,7 +115,9 @@ def vudestroy(*args):
     eval_hammerdb_command('vudestroy',*args)
 
 def vurun(*args):
-    eval_hammerdb_command('vurun',*args)
+    jobid = eval_hammerdb_command('vurun',*args)
+    if jobid:
+        return jobid
 
 def vuset(*args):
     eval_hammerdb_command('vuset',*args)
