@@ -35,8 +35,14 @@ def deleteschema(*args):
 def clearscript(*args):
     eval_hammerdb_command('clearscript',*args)
 
+def savescript(*args):
+    eval_hammerdb_command('savescript',*args)
+
 def customscript(*args):
     eval_hammerdb_command('customscript',*args)
+
+def custommonitor(*args):
+    eval_hammerdb_command('custommonitor',*args)
 
 def datagenrun(*args):
     eval_hammerdb_command('datagenrun',*args)
