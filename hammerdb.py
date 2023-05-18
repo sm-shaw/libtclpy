@@ -131,6 +131,15 @@ def vuset(*args):
 def vustatus(*args):
     eval_hammerdb_command('vustatus',*args)
 
+def wsstart(*args):
+    eval_hammerdb_command('wsstart',*args)
+
+def wsstop(*args):
+    eval_hammerdb_command('wsstop',*args)
+
+def wsstatus(*args):
+    eval_hammerdb_command('wsstatus',*args)
+
 def waittocomplete(*args):
     eval_hammerdb_command('waittocomplete',*args)
 
