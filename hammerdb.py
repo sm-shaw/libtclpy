@@ -131,6 +131,9 @@ def vuset(*args):
 def vustatus(*args):
     eval_hammerdb_command('vustatus',*args)
 
+def wsport(*args):
+    eval_hammerdb_command('wsport',*args)
+
 def wsstart(*args):
     eval_hammerdb_command('wsstart',*args)
 
