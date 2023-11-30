@@ -56,6 +56,9 @@ def dgset(*args):
 def diset(*args):
     eval_hammerdb_command('diset',*args)
 
+def giset(*args):
+    eval_hammerdb_command('giset',*args)
+
 def distributescript(*args):
     eval_hammerdb_command('distributescript',*args)
 
@@ -76,7 +79,7 @@ def loadscript(*args):
     eval_hammerdb_command('loadscript',*args)
 
 def print(*args, **kwargs):
-    command_list = ['db', 'bm', 'dict', 'script', 'vuconf', 'vucreated', 'vustatus', 'datagen', 'tcconf']
+    command_list = ['db', 'bm', 'dict', 'generic', 'script', 'vuconf', 'vucreated', 'vustatus', 'datagen', 'tcconf']
     flag = 0
     for j in command_list:
             if args[0]==j:
