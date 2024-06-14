@@ -29,6 +29,9 @@ def buildschema(*args):
     if jobid:
         return jobid
 
+def checkschema(*args):
+    eval_hammerdb_command('checkschema',*args)
+
 def deleteschema(*args):
     eval_hammerdb_command('deleteschema',*args)
 
@@ -95,6 +98,18 @@ def quit(*args):
 
 def runtimer(*args):
     eval_hammerdb_command('runtimer',*args)
+
+def metset(*args):
+    eval_hammerdb_command('metset',*args)
+
+def metstart(*args):
+    eval_hammerdb_command('metstart',*args)
+
+def metstatus(*args):
+    eval_hammerdb_command('metstatus',*args)
+
+def metstop(*args):
+    eval_hammerdb_command('metstop',*args)
 
 def steprun(*args):
     eval_hammerdb_command('steprun',*args)
