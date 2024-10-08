@@ -3,6 +3,22 @@
 #include <tcl.h>
 #include <assert.h>
 
+/* Check, if Tcl version supports Tcl_Size,
+   which was introduced in Tcl 8.7 and 9.
+*/
+#ifndef TCL_SIZE_MAX
+    #include <limits.h>
+    #define TCL_SIZE_MAX INT_MAX
+
+    #ifndef Tcl_Size
+        typedef int Tcl_Size;
+    #endif
+
+    #define TCL_SIZE_MODIFIER ""
+    #define Tcl_GetSizeIntFromObj Tcl_GetIntFromObj
+    #define Tcl_NewSizeIntObj     Tcl_NewIntObj
+#endif
+
 #if ! defined(_MSC_VER)
 #if ! defined(HAVE_PYTHON3) 
     #include <dlfcn.h>
@@ -449,7 +465,7 @@ tclpy_eval(PyObject *self, PyObject *args, PyObject *kwargs)
 	int result = Tcl_Eval(interp, tclCode);
 	Tcl_Obj *tResult = Tcl_GetObjResult(interp);
 
-	int tclStringSize;
+	Tcl_Size tclStringSize;
 	char *tclString;
 	tclString = Tcl_GetStringFromObj(tResult, &tclStringSize);
 
@@ -503,9 +519,9 @@ Tclpy_Init(Tcl_Interp *interp)
 	if (parentInterp == NO_PARENT)
 		parentInterp = TCL_PARENT;
 
-	if (Tcl_InitStubs(interp, "8.6", 0) == NULL)
+	if (Tcl_InitStubs(interp, "8.6-", 0) == NULL)
 		return TCL_ERROR;
-	if (Tcl_PkgRequire(interp, "Tcl", "8.6", 0) == NULL)
+	if (Tcl_PkgRequire(interp, "Tcl", "8.6-", 0) == NULL)
 		return TCL_ERROR;
 	if (Tcl_PkgProvide(interp, "tclpy", PACKAGE_VERSION) != TCL_OK)
 		return TCL_ERROR;
