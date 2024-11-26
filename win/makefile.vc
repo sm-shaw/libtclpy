@@ -1,7 +1,7 @@
 # Makefile.vc
 
-TCLPY_VERSION = 0.4
-DLL_VERSION = 04
+TCLPY_VERSION = 0.4.1
+DLL_VERSION = 041
 
 PROJECT = tclpy$(DLL_VERSION)
 !include "rules.vc"
@@ -18,7 +18,7 @@ CP      = copy
 RM      = del
 
 PACKAGE_NAME	= tclpy
-PACKAGE_VERSION	= 0.4
+PACKAGE_VERSION	= 0.4.1
 DLL = tclpy.pyd
 
 lflags = /NOLOGO /MACHINE:$(MACHINE) /LIBPATH:"$(TCL_LIBRARY)"
@@ -26,7 +26,7 @@ lflags = /NOLOGO /MACHINE:$(MACHINE) /LIBPATH:"$(TCL_LIBRARY)"
 DLLENTRY = @12
 dlllflags = $(lflags) -entry:_DllMainCRTStartup -dll
 
-CLFLAGS = /c -Ob2 -favor:blend /MT /W3 /nologo -DPACKAGE_NAME=\"tclpy\" -DPACKAGE_VERSION=\"0.4\"
+CLFLAGS = /c -Ob2 -favor:blend /MT /W3 /nologo -DPACKAGE_NAME=\"tclpy\" -DPACKAGE_VERSION=\"0.4.1\"
 baselibs   =   "$(TCL_LIBRARY)/$(TCL_LIB)" "$(LIBDIR)/$(PY_LIB)"
 
 DIR_SRC = ..\generic
