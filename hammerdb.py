@@ -29,6 +29,33 @@ def buildschema(*args):
     if jobid:
         return jobid
 
+def citmp(*args):
+    retval = eval_hammerdb_command('citmp', *args)
+    if retval:
+        return retval
+
+def cilisten(*args):
+    eval_hammerdb_command('cilisten', *args)
+
+def cistatus(*args):
+    retval = eval_hammerdb_command('cistatus', *args)
+    if retval:
+        return retval
+
+def cistop(*args):
+    eval_hammerdb_command('cistop', *args)
+
+def cipush(*args):
+    eval_hammerdb_command('cipush', *args)
+
+def cistep(*args):
+    retval = eval_hammerdb_command('cistep', *args)
+    if retval:
+        return retval
+
+def ciset(*args):
+    eval_hammerdb_command('ciset', *args)
+
 def checkschema(*args):
     eval_hammerdb_command('checkschema',*args)
 
@@ -82,7 +109,7 @@ def loadscript(*args):
     eval_hammerdb_command('loadscript',*args)
 
 def print(*args, **kwargs):
-    command_list = ['db', 'bm', 'dict', 'generic', 'script', 'vuconf', 'vucreated', 'vustatus', 'datagen', 'tcconf']
+    command_list = ['db', 'bm', 'dict', 'generic', 'script', 'vuconf', 'vucreated', 'vustatus', 'datagen', 'tcconf', 'ci']
     flag = 0
     for j in command_list:
             if args[0]==j:
@@ -160,9 +187,6 @@ def wsstop(*args):
 
 def wsstatus(*args):
     eval_hammerdb_command('wsstatus',*args)
-
-def waittocomplete(*args):
-    eval_hammerdb_command('waittocomplete',*args)
 
 def source(filename):
     runscript(1)
