@@ -56,6 +56,9 @@ def cistep(*args):
 def ciset(*args):
     eval_hammerdb_command('ciset', *args)
 
+def cifix(*args):
+    eval_hammerdb_command('cifix', *args)
+
 def checkschema(*args):
     eval_hammerdb_command('checkschema',*args)
 
