@@ -29,6 +29,9 @@ def buildschema(*args):
     if jobid:
         return jobid
 
+def ci(*args):
+    eval_hammerdb_command('ci', *args)
+
 def citmp(*args):
     retval = eval_hammerdb_command('citmp', *args)
     if retval:
@@ -36,6 +39,9 @@ def citmp(*args):
 
 def cilisten(*args):
     eval_hammerdb_command('cilisten', *args)
+
+def cireset(*args):
+    eval_hammerdb_command('cireset', *args)
 
 def cistatus(*args):
     retval = eval_hammerdb_command('cistatus', *args)
@@ -47,11 +53,6 @@ def cistop(*args):
 
 def cipush(*args):
     eval_hammerdb_command('cipush', *args)
-
-def cistep(*args):
-    retval = eval_hammerdb_command('cistep', *args)
-    if retval:
-        return retval
 
 def ciset(*args):
     eval_hammerdb_command('ciset', *args)
@@ -110,6 +111,12 @@ def librarycheck(*args):
 
 def loadscript(*args):
     eval_hammerdb_command('loadscript',*args)
+
+def pipe(*args):
+    eval_hammerdb_command('pipe', *args)
+
+def pipes(*args):
+    eval_hammerdb_command('pipes', *args)
 
 def print(*args, **kwargs):
     command_list = ['db', 'bm', 'dict', 'generic', 'script', 'vuconf', 'vucreated', 'vustatus', 'datagen', 'tcconf', 'ci']
