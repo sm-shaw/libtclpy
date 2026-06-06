@@ -148,6 +148,11 @@ def metstatus(*args):
 def metstop(*args):
     eval_hammerdb_command('metstop',*args)
 
+def numberOfWHs(*args):
+    retval = eval_hammerdb_command('numberOfWHs', *args)
+    if retval:
+        return retval
+
 def steprun(*args):
     eval_hammerdb_command('steprun',*args)
 
